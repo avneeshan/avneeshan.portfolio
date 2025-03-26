@@ -50,7 +50,7 @@ overlay.addEventListener("click", testimonialsModalFunc);
 // Contact form variables
 const form = document.querySelector(".form[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector(".form-btn[data-form-btn]");
+const contactBtn = document.querySelector("#contact-btn"); // Only target this button
 
 let isSubmitting = false; // Prevent multiple submissions
 
@@ -58,9 +58,9 @@ let isSubmitting = false; // Prevent multiple submissions
 formInputs.forEach(input => {
   input.addEventListener("input", function () {
     if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
+      contactBtn.removeAttribute("disabled");
     } else {
-      formBtn.setAttribute("disabled", "");
+      contactBtn.setAttribute("disabled", "");
     }
   });
 });
@@ -76,8 +76,8 @@ form.addEventListener("submit", function (event) {
   }
 
   isSubmitting = true; // Lock submission
-  formBtn.innerText = "Sending..."; // Change button text
-  formBtn.setAttribute("disabled", "true"); // Disable only the form button
+  contactBtn.innerText = "Sending..."; // Change button text
+  contactBtn.setAttribute("disabled", "true"); // Disable only the form button
 
   const name = document.querySelector("#name").value;
   const email = document.querySelector("#email").value;
@@ -107,8 +107,8 @@ form.addEventListener("submit", function (event) {
       if (response.ok) {
         alert("Message sent successfully!");
         form.reset();
-        formBtn.setAttribute("disabled", "true"); // Disable button after submission
-        formBtn.innerText = "Send Message"; // Reset button text
+        contactBtn.setAttribute("disabled", "true"); // Disable button after submission
+        contactBtn.innerText = "Send Message"; // Reset button text
       } else {
         alert("Failed to send message. Please try again.");
       }
@@ -119,8 +119,8 @@ form.addEventListener("submit", function (event) {
     })
     .finally(() => {
       isSubmitting = false; // Unlock submission
-      formBtn.innerText = "Send Message"; // Reset button text
-      formBtn.removeAttribute("disabled"); // Re-enable button after completion
+      contactBtn.innerText = "Send Message"; // Reset button text
+      contactBtn.removeAttribute("disabled"); // Re-enable button after completion
     });
 });
 
@@ -147,7 +147,7 @@ navigationLinks.forEach((link, index) => {
 // ✅ Fix: Prevent disabling other buttons
 const allButtons = document.querySelectorAll("button");
 allButtons.forEach((btn) => {
-  if (!btn.classList.contains("form-btn")) {
+  if (btn.id !== "contact-btn") {
     btn.removeAttribute("disabled");
   }
 });
