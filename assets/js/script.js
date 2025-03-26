@@ -50,7 +50,7 @@ overlay.addEventListener("click", testimonialsModalFunc);
 // Contact form variables
 const form = document.querySelector(".form[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
-const contactBtn = document.querySelector("#contact-btn"); // Only target this button
+const contactBtn = document.querySelector("#contact-btn"); // Only target the form button
 
 let isSubmitting = false; // Prevent multiple submissions
 
@@ -129,24 +129,28 @@ const navigationLinks = document.querySelectorAll("[data-nav-link]");
 const pages = document.querySelectorAll("[data-page]");
 
 // Add event to all nav links for page switching
-navigationLinks.forEach((link, index) => {
-  link.addEventListener("click", function () {
-    pages.forEach((page, pageIndex) => {
-      if (link.innerHTML.toLowerCase() === page.dataset.page) {
+navigationLinks.forEach((link) => {
+  link.addEventListener("click", function (event) {
+    event.preventDefault(); // Prevent default link behavior
+    const targetPage = link.dataset.navLink;
+
+    pages.forEach((page) => {
+      if (page.dataset.page === targetPage) {
         page.classList.add("active");
-        navigationLinks[pageIndex].classList.add("active");
-        window.scrollTo(0, 0);
       } else {
         page.classList.remove("active");
-        navigationLinks[pageIndex].classList.remove("active");
       }
     });
+
+    // Update active link styling
+    navigationLinks.forEach((navLink) => navLink.classList.remove("active"));
+    link.classList.add("active");
+    window.scrollTo(0, 0); // Scroll to top after switching
   });
 });
 
-// ✅ Fix: Prevent disabling other buttons
-const allButtons = document.querySelectorAll("button");
-allButtons.forEach((btn) => {
+// ✅ Prevent disabling other buttons after form submission
+document.querySelectorAll("button").forEach((btn) => {
   if (btn.id !== "contact-btn") {
     btn.removeAttribute("disabled");
   }
