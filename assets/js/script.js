@@ -134,3 +134,46 @@ navigationLinks.forEach((link, index) => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector("#contact-form");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const name = document.querySelector("#fullname").value;
+    const email = document.querySelector("#email").value;
+    const message = document.querySelector("#message").value;
+
+    const data = {
+      service_id: "service_j1zh2f8",
+      template_id: "template_a9phfeb",
+      user_id: "cKkIbhvCLcBm01AyM",
+      template_params: {
+        from_name: name,
+        from_email: email,
+        message: message,
+      },
+    };
+
+    fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Message sent successfully!");
+          form.reset();
+        } else {
+          alert("Failed to send message. Please try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("An error occurred. Please try again.");
+      });
+  });
+});
+
