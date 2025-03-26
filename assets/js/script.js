@@ -82,16 +82,17 @@ form.addEventListener("submit", function (event) {
   const email = document.querySelector("#email").value;
   const message = document.querySelector("#message").value;
 
-    const data = {
-      service_id: "service_j1zh2f8",
-      template_id: "template_a9phfeb",
-      user_id: "cKkIbhvCLcBm01AyM",
-      template_params: {
-        from_name: name,
-        from_email: email,
-        message: message,
-      },
-    };
+  // EmailJS configuration with correct service and template IDs
+  const data = {
+    service_id: "service_j1zh2f8", // Correct service ID
+    template_id: "template_a9phfeb", // Correct template ID
+    user_id: "cKkIbhvCLcBm01AyM", // Correct public key (user ID)
+    template_params: {
+      from_name: name,
+      from_email: email,
+      message: message,
+    },
+  };
 
   // Sending email using EmailJS API
   fetch("https://api.emailjs.com/api/v1.0/email/send", {
@@ -139,4 +140,12 @@ navigationLinks.forEach((link, index) => {
       }
     });
   });
+});
+
+// Fix: Prevent disabling other buttons
+const allButtons = document.querySelectorAll("button");
+allButtons.forEach((btn) => {
+  if (!btn.classList.contains("form-btn")) {
+    btn.removeAttribute("disabled");
+  }
 });
