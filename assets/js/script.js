@@ -15,6 +15,10 @@ sidebarBtn.addEventListener("click", function () {
   elementToggleFunc(sidebar); 
 });
 
+window.addEventListener('popstate', function () {
+  location.reload(); // Reload page to fix disappearing content
+});
+
 // Testimonials variables
 const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
 const modalContainer = document.querySelector("[data-modal-container]");
