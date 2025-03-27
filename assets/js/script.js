@@ -6,6 +6,12 @@ const elementToggleFunc = function (elem) {
   elem.classList.toggle("active"); 
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const ioniconsScript = document.createElement("script");
+  ioniconsScript.setAttribute("src", "https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js");
+  document.body.appendChild(ioniconsScript);
+});
+
 // Sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
 const sidebarBtn = document.querySelector("[data-sidebar-btn]");
